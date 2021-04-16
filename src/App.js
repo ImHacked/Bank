@@ -6,17 +6,26 @@ import './App.css';
 
 function App() {
     const [data, setData] = useState([]);
+    const [city, setCity] = useState("");
     const [a, setA] = useState('');
+
+    const changeCity = (event) => {
+        setCity(event.target.value);
+
+    };
+
+   
     useEffect(() => {
-        (async () => {
-            const result = await axios(
-                "https://vast-shore-74260.herokuapp.com/banks?city=MUMBAI"
-            );
-            setData(result.data);
-            
-           
-        })();
-    }, []);
+        const fetchData = async () => {
+          const result = await axios(
+            `https://vast-shore-74260.herokuapp.com/banks?city=${city}`,
+          );
+     
+          setData(result.data);
+        };
+     
+        fetchData();
+      }, [city]);
     const columns = useMemo(() => [
         {
             Header: 'IFSC',
@@ -58,22 +67,25 @@ function App() {
                 <h1>Bank Searching System</h1>
             </div>
             <div className="input__box">
-                <label for="city">Choose a City:</label>
+                <label for="city">Choose a City:
+                </label>
 
-                <select name="city" id="city">
-                    <option value="Mumbai">Mumbai</option>
-                    <option value="Bangalore">Delhi</option>
-                    <option value="Delhi">Chennai</option>
-                    <option value="Patna">Kolkata</option>
-                    <option value="Agartala">Hyderabad</option>
+                <select onChange={changeCity} name="city" id="city">
+                    <option value="MUMBAI">MUMBAI</option>
+                    <option value="DELHI">DELHI</option>
+                    <option value="KOLKATA">KOLKATA</option>
+                    <option value="PUNE">PUNE</option>
+                    <option value="HYDERABAD">HYDERABAD</option>
                 </select>
                 <input
                     className="input"
+                    placeholder="Search Bank"
                     type='text'
                     value={a}
                     onChange={(e) => setA(e.target.value)}/>
+               
             </div>
-            
+
             <div className="table">
 
                 <Table columns={columns} data={search(data)}></Table>
