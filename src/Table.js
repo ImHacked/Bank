@@ -1,7 +1,8 @@
 
 import React from "react";
-import { useTable, usePagination } from "react-table";
+import { useTable, usePagination} from "react-table";
 import "./Table.css";
+
 
 
 
@@ -19,18 +20,23 @@ export default function Table({ columns, data }) {
           gotoPage,
           nextPage,
           previousPage,
+          
           setPageSize,
-          state: { pageIndex, pageSize },
+          state:{pageIndex, pageSize},
+          
         } = useTable(
           {
             columns,
             data,
             initialState: { pageIndex: 2 },
-          },
-          usePagination
+          },usePagination,
         )
+
+        
  
   return (<>
+
+
 
       <table {...getTableProps()}>
         <thead>

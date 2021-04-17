@@ -1,11 +1,12 @@
 import React, {useMemo, useState, useEffect} from "react";
 import axios from 'axios'
 import Table from "./Table";
+import useSWR from 'swr';
 
 import './App.css';
 
 function App() {
-    const [data, setData] = useState([]);
+   
     const [city, setCity] = useState("");
     const [a, setA] = useState('');
 
@@ -13,19 +14,7 @@ function App() {
         setCity(event.target.value);
 
     };
-
-   
-    useEffect(() => {
-        const fetchData = async () => {
-          const result = await axios(
-            `https://vast-shore-74260.herokuapp.com/banks?city=${city}`,
-          );
-     
-          setData(result.data);
-        };
-     
-        fetchData();
-      }, [city]);
+     const {data}=useSWR(  `https://vast-shore-74260.herokuapp.com/banks?city=${city}`,(url)=>axios(url).then(r=>r.data));
     const columns = useMemo(() => [
         {
             Header: 'IFSC',
@@ -54,11 +43,16 @@ function App() {
         }
     ], [])
 
+   
+
     function search(rows) {
         return rows.filter(
-            (row) => row.ifsc.toLowerCase().indexOf(a) > -1 || row.bank_id.toString().toLowerCase().indexOf(a) > -1 || row.branch.toLowerCase().indexOf(a) > -1 || row.address.toLowerCase().indexOf(a) > -1 || row.city.toLowerCase().indexOf(a) > -1 || row.district.toLowerCase().indexOf(a) > -1 || row.state.toLowerCase().indexOf(a) > -1 || row.bank_name.toLowerCase().indexOf(a) > -1
+            (row) => row.ifsc.toString().toLowerCase().indexOf(a.toLowerCase()) > -1 || row.bank_id.toString().toLowerCase().indexOf(a.toLowerCase()) > -1 || row.branch.toString().toLowerCase().indexOf(a.toLowerCase()) > -1 || row.address.toString().toLowerCase().indexOf(a.toLowerCase()) > -1 || row.city.toString().toLowerCase().indexOf(a.toLowerCase()) > -1 || row.district.toString().toLowerCase().indexOf(a.toLowerCase()) > -1 || row.state.toString().toLowerCase().indexOf(a.toLowerCase()) > -1 || row.bank_name.toString().toLowerCase().indexOf(a.toLowerCase()) > -1
         );
     }
+
+   
+    
 
     return (
         <div className="App">
@@ -71,6 +65,7 @@ function App() {
                 </label>
 
                 <select onChange={changeCity} name="city" id="city">
+                    <option value="">Select City</option>
                     <option value="MUMBAI">MUMBAI</option>
                     <option value="DELHI">DELHI</option>
                     <option value="KOLKATA">KOLKATA</option>
@@ -82,13 +77,14 @@ function App() {
                     placeholder="Search Bank"
                     type='text'
                     value={a}
-                    onChange={(e) => setA(e.target.value)}/>
-               
+                    onChange={(e) => setA((e.target.value))}/>
+
             </div>
 
             <div className="table">
 
-                <Table columns={columns} data={search(data)}></Table>
+                <Table columns={columns} data={search(data||[])}></Table>
+                
 
             </div>
 
