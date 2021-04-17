@@ -1,22 +1,24 @@
 {
   "files": {
     "main.css": "/Bank/static/css/main.2512256b.chunk.css",
-    "main.js": "/Bank/static/js/main.9fd14b08.chunk.js",
-    "main.js.map": "/Bank/static/js/main.9fd14b08.chunk.js.map",
+    "main.js": "/Bank/static/js/main.e017f40d.chunk.js",
+    "main.js.map": "/Bank/static/js/main.e017f40d.chunk.js.map",
     "runtime-main.js": "/Bank/static/js/runtime-main.04179ca7.js",
     "runtime-main.js.map": "/Bank/static/js/runtime-main.04179ca7.js.map",
-    "static/js/2.ed6da38d.chunk.js": "/Bank/static/js/2.ed6da38d.chunk.js",
-    "static/js/2.ed6da38d.chunk.js.map": "/Bank/static/js/2.ed6da38d.chunk.js.map",
+    "static/js/2.b159bff8.chunk.js": "/Bank/static/js/2.b159bff8.chunk.js",
+    "static/js/2.b159bff8.chunk.js.map": "/Bank/static/js/2.b159bff8.chunk.js.map",
     "static/js/3.e292ea40.chunk.js": "/Bank/static/js/3.e292ea40.chunk.js",
     "static/js/3.e292ea40.chunk.js.map": "/Bank/static/js/3.e292ea40.chunk.js.map",
     "index.html": "/Bank/index.html",
+    "service-worker.js": "/Bank/service-worker.js",
+    "service-worker.js.map": "/Bank/service-worker.js.map",
     "static/css/main.2512256b.chunk.css.map": "/Bank/static/css/main.2512256b.chunk.css.map",
-    "static/js/2.ed6da38d.chunk.js.LICENSE.txt": "/Bank/static/js/2.ed6da38d.chunk.js.LICENSE.txt"
+    "static/js/2.b159bff8.chunk.js.LICENSE.txt": "/Bank/static/js/2.b159bff8.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.04179ca7.js",
-    "static/js/2.ed6da38d.chunk.js",
+    "static/js/2.b159bff8.chunk.js",
     "static/css/main.2512256b.chunk.css",
-    "static/js/main.9fd14b08.chunk.js"
+    "static/js/main.e017f40d.chunk.js"
   ]
 }
