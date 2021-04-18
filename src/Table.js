@@ -1,36 +1,79 @@
-
 import React from "react";
-import { useTable, usePagination} from "react-table";
-import "./Table.css";
+import { useTable,usePagination,useRowSelect } from "react-table";
+import './Table.css';
+const IndeterminateCheckbox = React.forwardRef(
+  ({ indeterminate, ...rest }, ref) => {
+    const defaultRef = React.useRef()
+    const resolvedRef = ref || defaultRef
+
+    React.useEffect(() => {
+      resolvedRef.current.indeterminate = indeterminate
+    }, [resolvedRef, indeterminate])
+
+    return (
+      <>
+        <input type="checkbox" ref={resolvedRef} {...rest} />
+      </>
+    )
+  }
+)
 
 
+const Fav = JSON.parse(window.localStorage.getItem('Fav'))||{};
+const selectLen=window.localStorage.getItem('changeInSelection');
 
+console.log(selectLen);
 
-export default function Table({ columns, data }) {
-        const {
-          getTableProps,
-          getTableBodyProps,
-          headerGroups,
-          prepareRow,
-          page, 
-          canPreviousPage,
-          canNextPage,
-          pageOptions,
-          pageCount,
-          gotoPage,
-          nextPage,
-          previousPage,
-          
-          setPageSize,
-          state:{pageIndex, pageSize},
-          
-        } = useTable(
-          {
-            columns,
-            data,
-            initialState: { pageIndex: 2 },
-          },usePagination,
-        )
+export default function Table({ columns, data,city }) {
+  const INITIAL_SELECTED_ROW_IDS = Fav[city];
+  console.log(INITIAL_SELECTED_ROW_IDS);
+  const {
+    getTableProps, 
+    getTableBodyProps, 
+    headerGroups, 
+    page,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+  
+    state:{pageIndex, pageSize},
+    
+    prepareRow 
+  } = useTable({
+    columns,
+    data,
+    initialState: {
+      
+      selectedRowIds: INITIAL_SELECTED_ROW_IDS  || {}
+  }
+  },usePagination,useRowSelect,
+  hooks => {
+    hooks.visibleColumns.push(columns => [
+    
+      {
+        id: 'selection',
+        
+        Header: ({ getToggleAllPageRowsSelectedProps }) => (
+          <div>
+            Favourite
+          </div>
+        ),
+        
+        Cell: ({ row }) => (
+          <div>
+            <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+          </div>
+        ),
+      },
+      ...columns,
+    ])
+  });
+
 
         
  
