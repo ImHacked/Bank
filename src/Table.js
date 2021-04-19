@@ -18,6 +18,11 @@ const IndeterminateCheckbox = React.forwardRef(
   }
 )
 
+let Favourites={};
+
+const Fav = JSON.parse(window.localStorage.getItem('Favourites'))||{};
+
+
 
 
 
