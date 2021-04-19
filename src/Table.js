@@ -19,10 +19,7 @@ const IndeterminateCheckbox = React.forwardRef(
 )
 
 
-const Fav = JSON.parse(window.localStorage.getItem('Fav'))||{};
-const selectLen=window.localStorage.getItem('changeInSelection');
 
-console.log(selectLen);
 
 export default function Table({ columns, data,city }) {
   const INITIAL_SELECTED_ROW_IDS = Fav[city];
